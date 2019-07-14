@@ -74,7 +74,7 @@
 				<version>1.1.1</version>
 				<configuration>
 					<imageName>${docker.image.name}:${docker.image.tag}</imageName>
-					<dockerDirectory>${baseDir}/target/dockerfile</dockerDirectory>
+					<dockerDirectory>${basedir}/target/dockerfile</dockerDirectory>
 					<resources>
 						<resource>
 							<targetPath>/</targetPath>
