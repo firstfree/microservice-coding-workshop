@@ -1,0 +1,6 @@
+version: '3.6'
+services:
+  licensingservice:
+    image: js/tmx-licensing-service:chapter2
+    ports:
+      - 8080:8080
