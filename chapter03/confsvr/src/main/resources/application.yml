@@ -7,4 +7,4 @@ spring:
     config:
       server:
         native:
-          search-locations: file:/Users/jso/dev/work_java/workspace-microservice/coding-workshop/chapter03/confsvr/src/main/resources/config/licensingservice
+          search-locations: classpath:config/licensingservice
