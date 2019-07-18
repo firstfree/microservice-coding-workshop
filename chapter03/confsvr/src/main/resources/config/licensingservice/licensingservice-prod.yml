@@ -1,1 +1,15 @@
-example.property: "I AM IN THE PRODUCTION"
+spring:
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: false
+
+  datasource:
+    platform: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/microdust_prod?serverTimezone=UTC
+    username: microdust
+    password: microdust
+    tomcat:
+      test-while-idle: true
+      validation-query: SELECT 1
