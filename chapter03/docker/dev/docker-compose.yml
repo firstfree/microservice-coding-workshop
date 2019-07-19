@@ -1,0 +1,21 @@
+version: '3.6'
+services:
+  database:
+    extends:
+      file: ../common/docker-compose.yml
+      service: database
+    environment:
+      MYSQL_DATABASE: microdust_dev
+  configserver:
+    extends:
+      file: ../common/docker-compose.yml
+      service: configserver
+  licensingservice:
+    image: js/tmx-licensing-service:chapter03
+    ports:
+      - 8080:8080
+    environment:
+      PROFILE: dev
+      CONFIGSERVER_URI: http://configserver:8888
+      CONFIGSERVER_PORT: 8888
+      DATABASESERVER_PORT: 3306
