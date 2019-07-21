@@ -1,11 +1,17 @@
 version: '3.6'
+
 services:
   configserver:
     image: js/tmx-confsvr:chapter03
     ports:
       - 8888:8888
+
   database:
     image: mysql:8.0.15
+    container_name: microdust-db
+    volumes:
+      - ../../../../../../docker/mysql/data:/var/lib/mysql
+      - ../../../../../../docker/mysql/conf.d/my_custom.cnf:/etc/mysql/conf.d/my_custom.cnf:ro
     ports:
       - 3306:3306
     environment:
@@ -14,11 +20,12 @@ services:
       MYSQL_USER: microdust
       MYSQL_PASSWORD: micr0dust
       TZ: Asia/Seoul
+
   licensingservice:
     image: js/tmx-licensing-service:chapter03
     ports:
       - 8080:8080
-    enviroment:
+    environment:
       PROFILE: default
       CONFIGSERVER_URI: http://configserver:8888
       CONFIGSERVER_PORT: 8888
