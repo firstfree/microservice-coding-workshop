@@ -1,5 +1,6 @@
 package com.thoughtmechanix.licenses.services;
 
+import com.thoughtmechanix.licenses.config.ServiceConfig;
 import com.thoughtmechanix.licenses.model.License;
 import com.thoughtmechanix.licenses.repository.LicenseRepository;
 import java.util.List;
@@ -13,8 +14,13 @@ public class LicenseService {
   @Autowired
   private LicenseRepository licenseRepository;
 
+  @Autowired
+  private ServiceConfig serviceConfig;
+
   public License getLicense(String organizationId, String licenseId) {
-    return licenseRepository.findByOrOrganizationIdAndLicenseId(organizationId, licenseId);
+    License license =
+        licenseRepository.findByOrOrganizationIdAndLicenseId(organizationId, licenseId);
+    return license.withComment(serviceConfig.getExampleProperty());
   }
 
   public List<License> getLicensesByOrg(String organizationId) {
