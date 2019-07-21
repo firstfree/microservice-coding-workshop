@@ -19,7 +19,8 @@
   </parent>
 
   <modules>
-
+    <module>confsvr</module>
+    <module>licensing-service</module>
   </modules>
 
   <build>
