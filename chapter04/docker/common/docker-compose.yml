@@ -5,3 +5,11 @@ services:
     image: js/tmx-eurekasvr:chapter04
     ports:
       - 8761:8761
+
+  configserver:
+    image: js/tmx-confsvr:chapter04
+    ports:
+      - 8888:8888
+    environment:
+      EUREKASERVER_URI: http://eurekaserver:8761/eureka
+      EUREKASERVER_PORT: 8761
