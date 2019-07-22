@@ -1,0 +1,7 @@
+version: '3.6'
+
+services:
+  eurekaserver:
+    image: js/tmx-eurekasvr:chapter04
+    ports:
+      - 8761:8761
