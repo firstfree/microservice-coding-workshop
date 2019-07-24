@@ -32,15 +32,14 @@ public class OrganizationServiceController {
     organizationService.updateOrganization(organization);
   }
 
-  @PostMapping(value = "/{organizationId}")
-  public void saveOrganiztion(@RequestBody Organization organization) {
+  @PostMapping
+  public void saveOrganization(@RequestBody Organization organization) {
     organizationService.saveOrganization(organization);
   }
 
-  @DeleteMapping(value = "/organizationId")
+  @DeleteMapping("/{organizationId}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteOrganization(@PathVariable("organizationId") String organizationId,
-      @RequestBody Organization organization) {
-    organizationService.deleteOrganization(organization);
+  public void deleteOrganization(@PathVariable("organizationId") String organizationId) {
+    organizationService.deleteOrganization(organizationId);
   }
 }
