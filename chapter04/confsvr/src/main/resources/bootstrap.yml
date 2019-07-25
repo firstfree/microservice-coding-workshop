@@ -8,5 +8,5 @@ spring:
         encrypt:
           enabled: false
 
-      discovery:
-        enabled: true
+      enabled: true
+      fail-fast: true
