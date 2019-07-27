@@ -1,5 +1,6 @@
 package com.thoughtmechanix.licenses.services;
 
+import com.thoughtmechanix.licenses.config.ServiceConfig;
 import com.thoughtmechanix.licenses.model.License;
 import com.thoughtmechanix.licenses.model.Organization;
 import com.thoughtmechanix.licenses.repository.LicenseRepository;
@@ -12,6 +13,9 @@ public class LicenseService {
   @Autowired
   private LicenseRepository licenseRepository;
 
+  @Autowired
+  private ServiceConfig serviceConfig;
+
   public License getLicenses(String organizationId, String licenseId, String clientType) {
     License license =
         licenseRepository.findByOrOrganizationIdAndLicenseId(organizationId, licenseId);
@@ -23,7 +27,7 @@ public class LicenseService {
         .withContactEmail(organization.getContactEmail())
         .withContactName(organization.getContactName())
         .withContactPhone(organization.getContactPhone())
-        .withComment("");
+        .withComment(serviceConfig.getExampleProperty());
   }
 
   private Organization retrieveOrgInfo(String organizationId, String clientType) {
