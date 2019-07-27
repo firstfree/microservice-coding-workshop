@@ -45,4 +45,29 @@ public class License {
 
   @Column(name = "comment")
   private String comment;
+
+  public License withOrganizationName(String organizationName) {
+    this.setOrganizationName(organizationName);
+    return this;
+  }
+
+  public License withContactName(String contactName) {
+    this.setContactName(contactName);
+    return this;
+  }
+
+  public License withContactEmail(String contactEmail) {
+    this.setContactEmail(contactEmail);
+    return this;
+  }
+
+  public License withContactPhone(String contactPhone) {
+    this.setContactPhone(contactPhone);
+    return this;
+  }
+
+  public License withComment(String comment) {
+    this.setComment(comment);
+    return this;
+  }
 }
