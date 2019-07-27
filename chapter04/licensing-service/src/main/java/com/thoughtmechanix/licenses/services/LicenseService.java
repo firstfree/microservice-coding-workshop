@@ -1,6 +1,7 @@
 package com.thoughtmechanix.licenses.services;
 
 import com.thoughtmechanix.licenses.clients.OrganizationDiscoveryClient;
+import com.thoughtmechanix.licenses.clients.OrganizationFeignClient;
 import com.thoughtmechanix.licenses.clients.OrganizationRestTemplateClient;
 import com.thoughtmechanix.licenses.config.ServiceConfig;
 import com.thoughtmechanix.licenses.model.License;
@@ -23,6 +24,9 @@ public class LicenseService {
 
   @Autowired
   private OrganizationRestTemplateClient organizationRestTemplateClient;
+
+  @Autowired
+  private OrganizationFeignClient organizationFeignClient;
 
   public License getLicenses(String organizationId, String licenseId, String clientType) {
     License license =
@@ -49,6 +53,10 @@ public class LicenseService {
       case "rest":
         System.out.println("I am using the rest client.");
         organization = organizationRestTemplateClient.getOrganization(organizationId);
+        break;
+      case "feign":
+        System.out.println("I am using the feign client.");
+        organization = organizationFeignClient.getOrganization(organizationId);
         break;
     }
 
