@@ -1,5 +1,6 @@
 package com.thoughtmechanix.licenses.services;
 
+import com.thoughtmechanix.licenses.clients.OrganizationDiscoveryClient;
 import com.thoughtmechanix.licenses.config.ServiceConfig;
 import com.thoughtmechanix.licenses.model.License;
 import com.thoughtmechanix.licenses.model.Organization;
@@ -16,6 +17,9 @@ public class LicenseService {
   @Autowired
   private ServiceConfig serviceConfig;
 
+  @Autowired
+  private OrganizationDiscoveryClient organizationDiscoveryClient;
+
   public License getLicenses(String organizationId, String licenseId, String clientType) {
     License license =
         licenseRepository.findByOrOrganizationIdAndLicenseId(organizationId, licenseId);
@@ -31,6 +35,14 @@ public class LicenseService {
   }
 
   private Organization retrieveOrgInfo(String organizationId, String clientType) {
-    return null;
+    Organization organization = null;
+
+    switch (clientType) {
+      case "discovery":
+        System.out.println("I am using the discovery client.");
+        organization = organizationDiscoveryClient.getOrganization(organizationId);
+    }
+
+    return organization;
   }
 }
