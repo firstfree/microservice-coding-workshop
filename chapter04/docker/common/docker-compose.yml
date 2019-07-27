@@ -29,7 +29,7 @@ services:
       MYSQL_PASSWORD: micr0dust
       TZ: Asia/Seoul
 
-  organizationservice:
+  organizationservice1:
     image: js/tmx-organization-service:chapter04
     ports:
       - 8085:8085
@@ -42,3 +42,18 @@ services:
       CONFIGSERVER_PORT: 8888
       DATABASESERVER_PORT: 3306
       ENCRYPT_KEY: encryptkey
+
+  organizationservice2:
+    image: js/tmx-organization-service:chapter04
+    ports:
+      - 8086:8086
+    environment:
+      PROFILE: default
+      SERVER_PORT: 8086
+      CONFIGSERVER_URI: http://configserver:8888
+      EUREKASERVER_URI: http://eurekaserver:8761/eureka
+      EUREKASERVER_PORT: 8761
+      CONFIGSERVER_PORT: 8888
+      DATABASESERVER_PORT: 3306
+      ENCRYPT_KEY: encryptkey
+
