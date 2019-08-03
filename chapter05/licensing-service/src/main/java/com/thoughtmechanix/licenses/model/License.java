@@ -14,7 +14,7 @@ public class License {
 
   @Id
   @Column(name = "license_id", nullable = false)
-  private String id;
+  private String licenseId;
 
   @Column(name = "organization_id", nullable = false)
   private String organizationId;
