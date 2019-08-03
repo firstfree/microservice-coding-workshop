@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: configserver
+
+  cloud:
+    config:
+      server:
+        encrypt:
+          enabled: false
+
+      enabled: true
+      fail-fast: true
+
