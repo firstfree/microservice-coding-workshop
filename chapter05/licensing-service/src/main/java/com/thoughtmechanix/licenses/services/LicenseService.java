@@ -1,10 +1,13 @@
 package com.thoughtmechanix.licenses.services;
 
-import com.thoughtmechanix.licenses.clients.OrganizationFeignClient;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.thoughtmechanix.licenses.clients.OrganizationRestTemplateClient;
 import com.thoughtmechanix.licenses.config.ServiceConfig;
 import com.thoughtmechanix.licenses.model.License;
 import com.thoughtmechanix.licenses.model.Organization;
 import com.thoughtmechanix.licenses.repository.LicenseRepository;
+import java.util.List;
+import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +18,20 @@ public class LicenseService {
   private LicenseRepository licenseRepository;
 
   @Autowired
-  private OrganizationFeignClient organizationFeignClient;
+  private OrganizationRestTemplateClient organizationRestTemplateClient;
 
   @Autowired
   private ServiceConfig serviceConfig;
 
+  @HystrixCommand
+  public List<License> getLicenseByOrg(String organizationId) {
+    randomlyRunLong();
+    return licenseRepository.findByOrganizationId(organizationId);
+  }
+
   public License getLicense(String organizationId, String licenseId) {
     License license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
-    Organization organization = organizationFeignClient.getOrganization(organizationId);
+    Organization organization = getOrganization(organizationId);
     return license
         .withOrganizationName(organization.getName())
         .withContactEmail(organization.getContactEmail())
@@ -31,7 +40,25 @@ public class LicenseService {
         .withComment(serviceConfig.getExampleProperty());
   }
 
-  private Organization getOrganization(String organizationId) {
-    return organizationFeignClient.getOrganization(organizationId);
+  public Organization getOrganization(String organizationId) {
+    return organizationRestTemplateClient.getOrganization(organizationId);
+  }
+
+  private void randomlyRunLong() {
+    Random random = new Random();
+
+    int randomNum = random.nextInt(3) + 1;
+
+    if (randomNum == 3) {
+      sleep();
+    }
+  }
+
+  private void sleep() {
+    try {
+      Thread.sleep(11000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 }
