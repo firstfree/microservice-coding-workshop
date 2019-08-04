@@ -1,6 +1,7 @@
 package com.thoughtmechanix.licenses.services;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.thoughtmechanix.licenses.clients.OrganizationRestTemplateClient;
 import com.thoughtmechanix.licenses.config.ServiceConfig;
 import com.thoughtmechanix.licenses.model.License;
@@ -23,7 +24,8 @@ public class LicenseService {
   @Autowired
   private ServiceConfig serviceConfig;
 
-  @HystrixCommand
+  @HystrixCommand(commandProperties = @HystrixProperty(
+      name = "execution.isolation.thread.timeoutInMilliseconds", value = "12000"))
   public List<License> getLicenseByOrg(String organizationId) {
     randomlyRunLong();
     return licenseRepository.findByOrganizationId(organizationId);
