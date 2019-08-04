@@ -7,12 +7,15 @@ import com.thoughtmechanix.licenses.config.ServiceConfig;
 import com.thoughtmechanix.licenses.model.License;
 import com.thoughtmechanix.licenses.model.Organization;
 import com.thoughtmechanix.licenses.repository.LicenseRepository;
+import com.thoughtmechanix.licenses.utils.UserContextHolder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class LicenseService {
 
@@ -39,6 +42,8 @@ public class LicenseService {
           @HystrixProperty(name = "metrics.rollingStats.numBuckets", value = "5")
       })
   public List<License> getLicenseByOrg(String organizationId) {
+    log.debug("LicenseService.getLicenseByOrg Correlation id: {}",
+        UserContextHolder.getContext().getCorrelationId());
     randomlyRunLong();
     return licenseRepository.findByOrganizationId(organizationId);
   }
