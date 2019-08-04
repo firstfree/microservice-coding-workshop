@@ -1,0 +1,21 @@
+<!DOCTYPE configuration>
+
+<configuration>
+  <springProfile name="default, dev">
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+      <encoder>
+        <pattern>%t{yyyy-MM-dd HH:mm:ss.SSS, Asia/Seoul} | bytes: %b | elapsed time: %D ms%n{}request-log:%n%magenta(%requestContent) %n{}response-log:%n%cyan(%responseContent)</pattern>
+      </encoder>
+    </appender>
+  </springProfile>
+
+  <springProfile name="stg">
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+      <encoder>
+        <pattern>%t{yyyy-MM-dd HH:mm:ss.SSS, Asia/Seoul} | bytes: %b | elapsed time: %D ms%n{}request-log:%n%magenta(%fullRequest)response-log:%n%cyan(%fullResponse)</pattern>
+      </encoder>
+    </appender>
+  </springProfile>
+
+  <appender-ref ref="CONSOLE"/>
+</configuration>

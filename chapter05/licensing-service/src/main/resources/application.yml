@@ -14,6 +14,11 @@ logging:
     org.springframework.web: DEBUG
     com.thoughtmechanix: DEBUG
 
-server:
-  error:
-    include-exception: true
+logback:
+  access:
+    enabled: true
+
+#server:
+#  error:
+#    include-exception: true
+
