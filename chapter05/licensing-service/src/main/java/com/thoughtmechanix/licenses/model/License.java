@@ -46,6 +46,21 @@ public class License {
   @Column(name = "comment")
   private String comment;
 
+  public License withId(String id) {
+    this.setLicenseId(id);
+    return this;
+  }
+
+  public License withOrganizationId(String organizationId) {
+    this.setOrganizationId(organizationId);
+    return this;
+  }
+
+  public License withProductName(String productName) {
+    this.setProductName(productName);
+    return this;
+  }
+
   public License withOrganizationName(String organizationName) {
     this.setOrganizationName(organizationName);
     return this;

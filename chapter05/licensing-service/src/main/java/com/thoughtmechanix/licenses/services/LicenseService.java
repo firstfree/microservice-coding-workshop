@@ -7,6 +7,7 @@ import com.thoughtmechanix.licenses.config.ServiceConfig;
 import com.thoughtmechanix.licenses.model.License;
 import com.thoughtmechanix.licenses.model.Organization;
 import com.thoughtmechanix.licenses.repository.LicenseRepository;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,7 @@ public class LicenseService {
   @Autowired
   private ServiceConfig serviceConfig;
 
-  @HystrixCommand(commandProperties = @HystrixProperty(
-      name = "execution.isolation.thread.timeoutInMilliseconds", value = "12000"))
+  @HystrixCommand(fallbackMethod = "buildFallbackLicenseList")
   public List<License> getLicenseByOrg(String organizationId) {
     randomlyRunLong();
     return licenseRepository.findByOrganizationId(organizationId);
@@ -44,6 +44,16 @@ public class LicenseService {
 
   public Organization getOrganization(String organizationId) {
     return organizationRestTemplateClient.getOrganization(organizationId);
+  }
+
+  private List<License> buildFallbackLicenseList(String organizationId) {
+    List<License> fallbackList = new ArrayList<>();
+    License license = new License()
+        .withId("0000000-00-00000")
+        .withOrganizationId(organizationId)
+        .withProductName("Sorry no licensing information currently available");
+    fallbackList.add(license);
+    return fallbackList;
   }
 
   private void randomlyRunLong() {
