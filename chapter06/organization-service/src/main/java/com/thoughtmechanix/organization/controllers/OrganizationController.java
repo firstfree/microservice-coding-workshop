@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class OrganizationController {
 
-  private OrganizationService organizationService;
+  private final OrganizationService organizationService;
 
   @GetMapping("/{organizationId}")
   public Organization getOrganization(@PathVariable("organizationId") String organizationId) {
