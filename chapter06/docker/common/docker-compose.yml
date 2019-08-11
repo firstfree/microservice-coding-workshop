@@ -38,7 +38,7 @@ services:
       CONFIGSERVER_URI: http://configserver:8888
       EUREKASERVER_URI: http://eurekaserver:8761/eureka
       CONFIGSERVER_PORT: 8888
-      EUREKASERVER_PORT :8761
+      EUREKASERVER_PORT: 8761
       DATABASESERVER_PORT: 3306
       ENCRYPT_KEY: encryptkey
 
