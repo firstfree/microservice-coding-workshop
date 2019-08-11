@@ -1,0 +1,59 @@
+version: '3.6'
+
+services:
+  eurekaserver:
+    images: js/tmx-eurekasvr:chapter06
+    ports:
+      - 8761:8761
+
+  configserver:
+    image: js/tmx-confsvr:chapter06
+    ports:
+      - 8888:8888
+    environment:
+      EUREKASERVER_URI: http://eurekaserver:8761/eureka
+      EUREKASERVER_PORT: 8761
+
+  organizationservice:
+    image: js/tmx-organization-service:chapter06
+    ports:
+      - 8085:8085
+    environment:
+      PROFILE: default
+      SERVER_PORT: 8085
+      CONFIGSERVER_URI: http://configserver:8888
+      EUREKASERVER_URI: http://eurekaserver:8761/eureka
+      CONFIGSERVER_PORT: 8888
+      EUREKASERVER_PORT: 8761
+      DATABASESERVER_PORT: 3306
+      ENCRYPT_KEY: encryptkey
+
+  licensingservice:
+    image: js/tmx-licensing-service:chapter06
+    ports:
+      - 8080:8080
+    environment:
+      PROFILE_PORT: 8080
+      SERVER_PORT: 8080
+      CONFIGSERVER_URI: http://configserver:8888
+      EUREKASERVER_URI: http://eurekaserver:8761/eureka
+      CONFIGSERVER_PORT: 8888
+      EUREKASERVER_PORT :8761
+      DATABASESERVER_PORT: 3306
+      ENCRYPT_KEY: encryptkey
+
+  database:
+    image: mysql:8.0.15
+    container_name: microdust-db
+    volumes:
+      - ../../../../../../docker/mysql/data:/var/lib/mysql
+      - ../../../../../../docker/mysql/conf.d/my_custom.cnf:/etc/mysql/conf.d/my_custom.cnf:ro
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: micr0dust
+      MYSQL_DATABASE: microdust_local
+      MYSQL_USER: microdust
+      MYSQL_PASSWORD: micr0dust
+      TZ: Asia/Seoul
+
