@@ -11,4 +11,3 @@ eureka:
   server:
     error:
       include-exception: true
-      
