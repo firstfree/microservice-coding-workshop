@@ -1,7 +1,7 @@
-package com.thoughtmechanix.lincenses.controllers;
+package com.thoughtmechanix.licenses.controllers;
 
-import com.thoughtmechanix.lincenses.model.License;
-import com.thoughtmechanix.lincenses.services.LicenseService;
+import com.thoughtmechanix.licenses.model.License;
+import com.thoughtmechanix.licenses.services.LicenseService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

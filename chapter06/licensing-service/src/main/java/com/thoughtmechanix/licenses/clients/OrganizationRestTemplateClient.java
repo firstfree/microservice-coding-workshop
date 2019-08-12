@@ -1,7 +1,7 @@
-package com.thoughtmechanix.lincenses.clients;
+package com.thoughtmechanix.licenses.clients;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.thoughtmechanix.lincenses.model.Organization;
+import com.thoughtmechanix.licenses.model.Organization;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;

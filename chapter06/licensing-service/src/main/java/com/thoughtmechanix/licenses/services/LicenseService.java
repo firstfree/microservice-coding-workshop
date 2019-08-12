@@ -1,12 +1,12 @@
-package com.thoughtmechanix.lincenses.services;
+package com.thoughtmechanix.licenses.services;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
-import com.thoughtmechanix.lincenses.clients.OrganizationRestTemplateClient;
-import com.thoughtmechanix.lincenses.config.ServiceConfig;
-import com.thoughtmechanix.lincenses.model.License;
-import com.thoughtmechanix.lincenses.model.Organization;
-import com.thoughtmechanix.lincenses.repository.LicenseRepository;
+import com.thoughtmechanix.licenses.clients.OrganizationRestTemplateClient;
+import com.thoughtmechanix.licenses.config.ServiceConfig;
+import com.thoughtmechanix.licenses.model.License;
+import com.thoughtmechanix.licenses.model.Organization;
+import com.thoughtmechanix.licenses.repository.LicenseRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

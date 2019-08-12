@@ -1,4 +1,4 @@
-package com.thoughtmechanix.lincenses.model;
+package com.thoughtmechanix.licenses.model;
 
 import lombok.Data;
 

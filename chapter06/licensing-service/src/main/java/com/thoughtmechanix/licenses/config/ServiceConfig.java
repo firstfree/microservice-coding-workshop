@@ -1,4 +1,4 @@
-package com.thoughtmechanix.lincenses.config;
+package com.thoughtmechanix.licenses.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
