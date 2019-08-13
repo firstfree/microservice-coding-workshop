@@ -8,6 +8,10 @@ eureka:
     service-url:
       default-zone: http://eurekaserver:8761/eureka
 
-  server:
-    error:
-      include-exception: true
+server:
+  error:
+    include-exception: true
+
+logging:
+  level:
+    com.thoughtmechanix: debug
