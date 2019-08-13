@@ -7,14 +7,18 @@ import com.netflix.hystrix.strategy.executionhook.HystrixCommandExecutionHook;
 import com.netflix.hystrix.strategy.metrics.HystrixMetricsPublisher;
 import com.netflix.hystrix.strategy.properties.HystrixPropertiesStrategy;
 import javax.annotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@RequiredArgsConstructor
 public class ThreadLocalConfiguration {
 
-  private final HystrixConcurrencyStrategy hystrixConcurrencyStrategy;
+  private HystrixConcurrencyStrategy hystrixConcurrencyStrategy;
+
+  public ThreadLocalConfiguration(
+      ObjectProvider<HystrixConcurrencyStrategy> hystrixConcurrencyStrategies) {
+    this.hystrixConcurrencyStrategy = hystrixConcurrencyStrategies.getIfAvailable();
+  }
 
   @PostConstruct
   public void init() {
