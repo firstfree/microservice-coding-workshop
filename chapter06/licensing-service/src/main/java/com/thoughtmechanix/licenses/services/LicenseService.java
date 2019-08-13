@@ -7,12 +7,15 @@ import com.thoughtmechanix.licenses.config.ServiceConfig;
 import com.thoughtmechanix.licenses.model.License;
 import com.thoughtmechanix.licenses.model.Organization;
 import com.thoughtmechanix.licenses.repository.LicenseRepository;
+import com.thoughtmechanix.licenses.utils.UserContextHolder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class LicenseService {
@@ -35,6 +38,8 @@ public class LicenseService {
           @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "7000"),
       })
   public List<License> getLicenses(String organizationId) {
+    log.debug("LicenseService.getLicenses Correlation id: {}",
+        UserContextHolder.getContext().getCorrelationId());
     randomlyRunLong();
     return licenseRepository.findByOrganizationId(organizationId);
   }
