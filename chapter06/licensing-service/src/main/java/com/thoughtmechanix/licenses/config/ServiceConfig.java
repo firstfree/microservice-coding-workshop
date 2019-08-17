@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ServiceConfig {
 
-  @Value("${example.property")
+  @Value("${example.property}")
   private String exampleProperty;
 
   public String getExampleProperty() {
