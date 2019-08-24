@@ -21,7 +21,9 @@ public class OrganizationController {
 
   @GetMapping("/{organizationId}")
   public Organization getOrganization(@PathVariable("organizationId") String organizationId) {
-    return organizationService.getOrganization(organizationId);
+    Organization organization = organizationService.getOrganization(organizationId);
+    organization.setContactName("OLD::" + organization.getContactName());
+    return organization;
   }
 
   @PutMapping("/{organizationId}")
