@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: specialroutesservice
+
+  cloud:
+    config:
+      enabled: true
+      fail-fast: true
