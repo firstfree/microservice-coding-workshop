@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,8 +28,11 @@ public class LicenseController {
   }
 
   @GetMapping("/{licenseId}")
-  public License getLicense(@PathVariable("organizationId") String organizationId,
+  public License getLicense(@RequestHeader("tmx-correlation-id") String correlationId,
+      @PathVariable("organizationId") String organizationId,
       @PathVariable("licenseId") String licenseId) {
+    log.debug("Found tmx-correlation-id in license-service-controller: {}, Thread id: {}",
+        correlationId, Thread.currentThread().getId());
     return licenseService.getLicense(organizationId, licenseId);
   }
 }
