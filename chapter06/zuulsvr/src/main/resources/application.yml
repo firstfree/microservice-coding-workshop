@@ -7,10 +7,15 @@ management:
 server:
   port: 5555
 
+zuul:
+  SimpleHostRoutingFilter:
+    route:
+      disable: true
+
 logging:
   level:
-    com.netflix: WARN
-    org.springframework.web: WARN
+    com.netflix: DEBUG
+    org.springframework: DEBUG
     com.thoughtmechanix: DEBUG
 
 eureka:
