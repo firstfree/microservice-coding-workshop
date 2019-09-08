@@ -40,7 +40,7 @@ services:
       DATABASESERVER_PORT: 3306
       ENCRYPT_KEY: encryptkey
 
- organizationservice2:
+  organizationservice2:
     image: js/tmx-organization-service:chapter07
     ports:
       - 8087:8087
