@@ -1,11 +1,25 @@
 package com.thoughtmechanix.zuulsvr.model;
 
+import java.util.Random;
+
 public class AbTestingRoute {
 
   private String serviceName;
   private String active;
   private String endpoint;
   private Integer weight;
+
+  public boolean useSpecialRoute(int maxThreshold) {
+    if (!isActive()) {
+      return false;
+    }
+
+    return weight < new Random().nextInt(maxThreshold) + 1;
+  }
+
+  public boolean isActive() {
+    return active.equals("Y");
+  }
 
   public String getServiceName() {
     return serviceName;
