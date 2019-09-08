@@ -61,12 +61,12 @@ public class FilterUtils {
     return ctx.getRequest().getHeader(AUTH_TOKEN);
   }
 
-  public String getServiceId() {
+  public String getRouteHost() {
     RequestContext ctx = RequestContext.getCurrentContext();
-    if (ctx.get("serviceId") == null) {
+    if (ctx.getRouteHost() == null) {
       return "";
     }
 
-    return ctx.get("serviceId").toString();
+    return ctx.getRouteHost().getHost();
   }
 }
