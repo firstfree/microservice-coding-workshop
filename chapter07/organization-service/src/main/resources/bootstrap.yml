@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: organizationservice
+
+  cloud:
+    config:
+      enabled: true
+      fail-fast: true
+
