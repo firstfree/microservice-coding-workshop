@@ -2,3 +2,10 @@ spring:
   application:
     name: configserver
 
+  cloud:
+    config:
+      server:
+        encrypt:
+          enabled: false
+      fail-fast: true
+
