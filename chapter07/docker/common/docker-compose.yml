@@ -1,0 +1,99 @@
+version: '3.6'
+
+services:
+  eurekaserver:
+    image: js/tmx-eurekasvr:chapter07
+    ports:
+      - 8761:8761
+
+  configserver:
+    image: js/tmx-confsvr:chapter07
+    ports:
+      - 8888:8888
+    environment:
+      EUREKASERVER_URI: http://eurekaserver:8761/eureka
+      EUREKASERVER_PORT: 8761
+
+  zuulserver:
+    image: js/tmx-zuulsvr:chapter07
+    ports:
+      - 5555:5555
+    environment:
+      PROFILE: default
+      SERVER_PORT: 5555
+      CONFIGSERVER_URI: http://configserver:8888
+      EUREKASERVER_URI: http://eurekaserver:8761/eureka
+      CONFIGSERVER_PORT: 8888
+      EUREKASERVER_PORT: 8761
+
+  organizationservice1:
+    image: js/tmx-organization-service:chapter07
+    ports:
+      - 8085:8085
+    environment:
+      PROFILE: default
+      SERVER_PORT: 8085
+      CONFIGSERVER_URI: http://configserver:8888
+      EUREKASERVER_URI: http://eurekaserver:8761/eureka
+      CONFIGSERVER_PORT: 8888
+      EUREKASERVER_PORT: 8761
+      DATABASESERVER_PORT: 3306
+      ENCRYPT_KEY: encryptkey
+
+ organizationservice2:
+    image: js/tmx-organization-service:chapter07
+    ports:
+      - 8087:8087
+    environment:
+      PROFILE: default
+      SERVER_PORT: 8087
+      CONFIGSERVER_URI: http://configserver:8888
+      EUREKASERVER_URI: http://eurekaserver:8761/eureka
+      CONFIGSERVER_PORT: 8888
+      EUREKASERVER_PORT: 8761
+      DATABASESERVER_PORT: 3306
+      ENCRYPT_KEY: encryptkey
+
+  licensingservice1:
+    image: js/tmx-licensing-service:chapter07
+    ports:
+      - 8080:8080
+    environment:
+      PROFILE: default
+      SERVER_PORT: 8080
+      CONFIGSERVER_URI: http://configserver:8888
+      EUREKASERVER_URI: http://eurekaserver:8761/eureka
+      CONFIGSERVER_PORT: 8888
+      EUREKASERVER_PORT: 8761
+      DATABASESERVER_PORT: 3306
+      ENCRYPT_KEY: encryptkey
+
+  licensingservice2:
+    image: js/tmx-licensing-service:chapter07
+    ports:
+      - 8081:8081
+    environment:
+      PROFILE: default
+      SERVER_PORT: 8081
+      CONFIGSERVER_URI: http://configserver:8888
+      EUREKASERVER_URI: http://eurekaserver:8761/eureka
+      CONFIGSERVER_PORT: 8888
+      EUREKASERVER_PORT: 8761
+      DATABASESERVER_PORT: 3306
+      ENCRYPT_KEY: encryptkey
+
+  database:
+    image: mysql:8.0.15
+    container_name: microdust-db
+    volumes:
+      - ../../../../../../docker/mysql/data:/var/lib/mysql
+      - ../../../../../../docker/mysql/conf.d/my_custom.cnf:/etc/mysql/conf.d/my_custom.cnf:ro
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: micr0dust
+      MYSQL_DATABASE: microdust_local
+      MYSQL_USER: microdust
+      MYSQL_PASSWORD: micr0dust
+      TZ: Asia/Seoul
+
