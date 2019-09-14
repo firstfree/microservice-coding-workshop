@@ -5,5 +5,5 @@ spring:
   cloud:
     config:
       enabled: true
-      fail-fast: true
+      failFast: true
 
