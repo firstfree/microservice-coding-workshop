@@ -1,0 +1,20 @@
+logging:
+  level:
+    com.netflix: WARN
+    com.springframework.web: DEBUG
+    com.thoughtmechanix: DEBUG
+
+eureka:
+  instance:
+    preferIpAddress: true
+
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+server:
+  error:
+    includeException: true
+
