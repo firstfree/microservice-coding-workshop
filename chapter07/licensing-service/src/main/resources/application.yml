@@ -18,3 +18,25 @@ server:
   error:
     includeException: true
 
+feign:
+  hystrix:
+    enabled: true
+
+  client:
+    config:
+      default:
+        loggerLevel: BASIC
+        connectTimeout: 5000
+        readTimeout: 5000
+
+hystrix:
+  command:
+    default:
+      execution.isolation.thread.timeoutInMilliseconds: 10000
+
+    OrganizationFeignClient#getOrganization(String, String):
+      metrics.rollingStats.timeInMilliseconds: 15000
+      metrics.rollingStats.numBuckets: 5
+      circuitBreaker.requestVolumeThreshold: 10
+      circuitBreaker.errorThresholdPercentage: 75
+      circuitBreaker.sleepWindowInMilliseconds: 7000
