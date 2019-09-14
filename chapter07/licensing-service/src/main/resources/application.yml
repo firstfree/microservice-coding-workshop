@@ -40,3 +40,8 @@ hystrix:
       circuitBreaker.requestVolumeThreshold: 10
       circuitBreaker.errorThresholdPercentage: 75
       circuitBreaker.sleepWindowInMilliseconds: 7000
+
+  threadpool:
+    default:
+      coreSize: 30
+      maxQueueSize: 10
