@@ -65,7 +65,7 @@ public class LicenseService {
 
   private void sleep() {
     try {
-      Thread.sleep(110000);
+      Thread.sleep(11000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
