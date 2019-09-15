@@ -26,19 +26,19 @@ feign:
     config:
       default:
         loggerLevel: BASIC
-        connectTimeout: 5000
-        readTimeout: 5000
+        connectTimeout: 1000
+        readTimeout: 1000
 
 hystrix:
   command:
     default:
       execution.isolation.thread.timeoutInMilliseconds: 10000
 
-    OrganizationFeignClient#getOrganization(String, String):
+    OrganizationFeignClient#getOrganization(String,String):
       metrics.rollingStats.timeInMilliseconds: 15000
       metrics.rollingStats.numBuckets: 5
-      circuitBreaker.requestVolumeThreshold: 10
-      circuitBreaker.errorThresholdPercentage: 75
+      circuitBreaker.requestVolumeThreshold: 5
+      circuitBreaker.errorThresholdPercentage: 50
       circuitBreaker.sleepWindowInMilliseconds: 7000
 
   threadpool:
