@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: zuulservice
+
+  cloud:
+    config:
+      enabled: true
+      failFast: true
+
