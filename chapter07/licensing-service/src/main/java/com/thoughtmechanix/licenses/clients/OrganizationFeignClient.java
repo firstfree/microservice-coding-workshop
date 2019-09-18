@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-@FeignClient(name = "organizationservice", fallback = OrganizationFeignClientFallback.class)
+@FeignClient(name = "zuulservice", fallback = OrganizationFeignClientFallback.class)
 public interface OrganizationFeignClient {
 
-  @GetMapping("/v1/organizations/{organizationId}")
+  @GetMapping("/api/organization/v1/organizations/{organizationId}")
   Organization getOrganization(@RequestHeader(UserContext.CORRELATION_ID) String correlationId,
       @PathVariable String organizationId);
 }
