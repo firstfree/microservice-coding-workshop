@@ -2,7 +2,6 @@ package com.thoughtmechanix.zuulsvr.filters;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import com.thoughtmechanix.zuulsvr.utils.UserContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -39,7 +38,7 @@ public class ResponseFilter extends ZuulFilter {
     log.debug("Adding the correlation id to the outbound headers. {}",
         filterUtils.getCorrelationId());
 
-    ctx.getResponse().addHeader(UserContext.CORRELATION_ID, filterUtils.getCorrelationId());
+    ctx.getResponse().addHeader(FilterUtils.CORRELATION_ID, filterUtils.getCorrelationId());
 
     log.debug("Completing outgoing request for {}.", ctx.getRequest().getRequestURI());
 
