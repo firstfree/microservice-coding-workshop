@@ -82,6 +82,20 @@ services:
       DATABASESERVER_PORT: 3306
       ENCRYPT_KEY: encryptkey
 
+  authenticationservice:
+    image: js/tmx-authentication-service:chapter07
+    ports:
+      - 8901:8901
+    environment:
+      PROFILE: default
+      SERVER_PORT: 8901
+      CONFIGSERVER_URI: http://configserver:8888
+      EUREKASERVER_URI: http://eurekaserver:8761/eureka
+      CONFIGSERVER_PORT: 8888
+      EUREKASERVER_POPT: 8761
+      DATABASE_PORT: 3306
+      ENCRYPT_KEY: encryptkey
+
   database:
     image: mysql:8.0.15
     container_name: microdust-db
