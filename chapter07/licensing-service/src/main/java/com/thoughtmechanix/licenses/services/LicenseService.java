@@ -83,7 +83,6 @@ public class LicenseService {
   }
 
   private Organization getOrganization(String organizationId) {
-    return organizationFeignClient.getOrganization(
-        UserContextHolder.getContext().getCorrelationId(), organizationId);
+    return organizationFeignClient.getOrganization(organizationId);
   }
 }

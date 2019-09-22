@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class OrganizationFeignClientFallback implements OrganizationFeignClient {
 
   @Override
-  public Organization getOrganization(String correlationId, String organizationId) {
+  public Organization getOrganization(String organizationId) {
     log.debug("getOrganization fallback called");
 
     return Organization.builder()
