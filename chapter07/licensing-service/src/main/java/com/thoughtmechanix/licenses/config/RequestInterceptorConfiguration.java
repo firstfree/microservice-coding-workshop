@@ -7,7 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 
 @Configuration
-public class RequestConfiguration {
+public class RequestInterceptorConfiguration {
 
   @Bean
   public RequestInterceptor requestInterceptor() {
