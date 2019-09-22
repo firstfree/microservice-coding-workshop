@@ -45,3 +45,8 @@ hystrix:
     default:
       coreSize: 30
       maxQueueSize: 10
+
+security:
+  oauth2:
+    resource:
+      userInfoUri: http://authenticationservice:8091/user
