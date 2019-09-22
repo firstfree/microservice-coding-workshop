@@ -13,7 +13,7 @@ spring:
       server:
         git:
           uri: https://github.com/firstfree/config-repo.git
-          search-paths: licensingservice,organizationservice,zuulservice
+          search-paths: licensingservice,organizationservice,zuulservice,authenticationservice
           username: username
           password: password
 
