@@ -1,6 +1,6 @@
 logging:
   level:
-    com.netflix: WARN
+    com.netflix: DEBUG
     org.springframework.web: DEBUG
     com.thoughtmechanix: DEBUG
 
@@ -45,6 +45,8 @@ hystrix:
     default:
       coreSize: 30
       maxQueueSize: 10
+
+  shareSecurityContext: true
 
 security:
   oauth2:
