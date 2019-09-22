@@ -49,4 +49,4 @@ hystrix:
 security:
   oauth2:
     resource:
-      userInfoUri: http://authenticationservice:8091/user
+      userInfoUri: http://authenticationservice:8901/user
