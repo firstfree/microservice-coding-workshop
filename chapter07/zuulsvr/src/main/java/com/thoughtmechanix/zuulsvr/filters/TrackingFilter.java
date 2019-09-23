@@ -2,6 +2,9 @@ package com.thoughtmechanix.zuulsvr.filters;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+import com.thoughtmechanix.zuulsvr.config.ServiceConfig;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +19,7 @@ public class TrackingFilter extends ZuulFilter {
   private static final boolean SHOULD_FILTER = true;
 
   private final FilterUtils filterUtils;
+  private final ServiceConfig serviceConfig;
 
   @Override
   public String filterType() {
@@ -34,6 +38,8 @@ public class TrackingFilter extends ZuulFilter {
 
   @Override
   public Object run() {
+    RequestContext ctx = RequestContext.getCurrentContext();
+
     if (isCorrelationIdPresent()) {
       log.debug("tmx-correlation-id found in tracking filter: {}.", filterUtils.getCorrelationId());
     } else {
@@ -42,8 +48,8 @@ public class TrackingFilter extends ZuulFilter {
           filterUtils.getCorrelationId());
     }
 
-    RequestContext ctx = RequestContext.getCurrentContext();
-
+    log.debug("The organization id from the token is : " + getOrganizationId());
+    filterUtils.setOrgId(getOrganizationId());
     log.debug("Processing incoming request for {}.", ctx.getRequest().getRequestURI());
 
     return null;
@@ -55,5 +61,22 @@ public class TrackingFilter extends ZuulFilter {
 
   private String generateCorrelationId() {
     return UUID.randomUUID().toString();
+  }
+
+  private String getOrganizationId() {
+    String result = "";
+    if (filterUtils.getAuthToken() != null) {
+      String authToken = filterUtils.getAuthToken().replace("bearer ", "");
+      try {
+        Claims claims = Jwts.parser()
+            .setSigningKey(serviceConfig.getJwtSigningKey().getBytes("UTF-8"))
+            .parseClaimsJws(authToken).getBody();
+        result = (String) claims.get("organizationId");
+      } catch (Exception e){
+        e.printStackTrace();
+      }
+    }
+
+    return result;
   }
 }
