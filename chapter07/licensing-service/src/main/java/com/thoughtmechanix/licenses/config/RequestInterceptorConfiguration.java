@@ -16,6 +16,7 @@ public class RequestInterceptorConfiguration {
   public RequestInterceptor requestInterceptor() {
     return requestTemplate -> {
       requestTemplate.header(UserContext.CORRELATION_ID, getCorrelationId());
+      requestTemplate.header(UserContext.AUTH_TOKEN, getToken());
       requestTemplate.header(HttpHeaders.AUTHORIZATION, getToken());
     };
   }
