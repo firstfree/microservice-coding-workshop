@@ -21,14 +21,16 @@ public class JWTOAuth2Config extends AuthorizationServerConfigurerAdapter {
   private final UserDetailsService userDetailsService;
   private final TokenStore tokenStore;
   private final JwtAccessTokenConverter jwtAccessTokenConverter;
+  private final JWTTokenEnhancer jwtTokenEnhancer;
 
   @Override
   public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
     TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-    tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtAccessTokenConverter));
+    tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtTokenEnhancer, jwtAccessTokenConverter));
     endpoints
         .tokenStore(tokenStore)
         .accessTokenConverter(jwtAccessTokenConverter)
+        .tokenEnhancer(tokenEnhancerChain)
         .authenticationManager(authenticationManager)
         .userDetailsService(userDetailsService);
   }
