@@ -58,6 +58,7 @@ services:
       EUREKASERVER_PORT: 8761
       KAFKASERVER_PORT: 2181
       DATABASESERVER_PORT: 3306
+      REDIS_PORT: 6379
       ENCRYPT_KEY: encryptkey
 
   licensingservice2:
@@ -75,6 +76,7 @@ services:
       EUREKASERVER_PORT: 8761
       KAFKASERVER_PORT: 2181
       DATABASESERVER_PORT: 3306
+      REDIS_PORT: 6379
       ENCRYPT_KEY: encryptkey
 
   database:
