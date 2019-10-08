@@ -92,6 +92,11 @@ services:
       MYSQL_PASSWORD: micr0dust
       TZ: Asia/Seoul
 
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+
   zookeeper:
     image: wurstmeister/zookeeper
     container_name: zookeeper

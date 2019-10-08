@@ -23,6 +23,12 @@ while ! `nc -z zookeeper $KAFKASERVER_PORT`; do sleep 10; done
 echo "******* Zookeeper Server has started"
 
 echo "********************************************************"
+echo "Waiting for the REDIS server to start on port $REDIS_PORT"
+echo "********************************************************"
+while ! `nc -z redis $REDIS_PORT`; do sleep 10; done
+echo "******* REDIS has started"
+
+echo "********************************************************"
 echo "Starting License Server with Configuration Service via Eureka: $EUREKASERVER_URI:$SERVER_PORT"
 echo "Using Kafka Server: $KAFKASERVER_URI"
 echo "Using ZK    Server: $ZKSERVER_URI"
