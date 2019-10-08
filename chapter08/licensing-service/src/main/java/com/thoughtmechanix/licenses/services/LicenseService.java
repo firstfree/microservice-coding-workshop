@@ -11,6 +11,7 @@ import com.thoughtmechanix.licenses.utils.UserContextHolder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -84,5 +85,18 @@ public class LicenseService {
 
   private Organization getOrganization(String organizationId) {
     return organizationFeignClient.getOrganization(organizationId);
+  }
+
+  public void saveLicense(License license) {
+    license.setLicenseId(UUID.randomUUID().toString());
+    licenseRepository.save(license);
+  }
+
+  public void updateLicense(License license) {
+    licenseRepository.save(license);
+  }
+
+  public void deleteLicense(String licenseId) {
+    licenseRepository.deleteById(licenseId);
   }
 }
