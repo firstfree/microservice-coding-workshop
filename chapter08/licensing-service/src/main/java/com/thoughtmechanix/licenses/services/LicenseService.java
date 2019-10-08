@@ -2,7 +2,6 @@ package com.thoughtmechanix.licenses.services;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
-import com.thoughtmechanix.licenses.clients.OrganizationFeignClient;
 import com.thoughtmechanix.licenses.config.ServiceConfig;
 import com.thoughtmechanix.licenses.model.License;
 import com.thoughtmechanix.licenses.model.Organization;
@@ -21,8 +20,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class LicenseService {
 
+  private final OrganizationService organizationService;
   private final LicenseRepository licenseRepository;
-  private final OrganizationFeignClient organizationFeignClient;
   private final ServiceConfig serviceConfig;
 
   @HystrixCommand(
@@ -74,17 +73,13 @@ public class LicenseService {
 
   public License getLicense(String organizationId, String licenseId) {
     License license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
-    Organization organization = getOrganization(organizationId);
+    Organization organization = organizationService.getOrganization(organizationId);
     return license
         .withOrganizationName(organization.getName())
         .withContactEmail(organization.getContactEmail())
         .withContactName(organization.getContactName())
         .withContactPhone(organization.getContactPhone())
         .withComment(serviceConfig.getExampleProperty());
-  }
-
-  private Organization getOrganization(String organizationId) {
-    return organizationFeignClient.getOrganization(organizationId);
   }
 
   public void saveLicense(License license) {
