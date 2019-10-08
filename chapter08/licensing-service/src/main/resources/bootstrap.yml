@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: licensingservice
+
+  cloud:
+    config:
+      enabled: true
+      failFast: true
+

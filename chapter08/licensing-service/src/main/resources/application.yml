@@ -1,0 +1,61 @@
+logging:
+  level:
+    com.netflix: DEBUG
+    org.springframework.web: DEBUG
+    com.thoughtmechanix: DEBUG
+
+eureka:
+  instance:
+    preferIpAddress: true
+
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+server:
+  error:
+    includeException: true
+
+feign:
+  hystrix:
+    enabled: true
+
+  client:
+    config:
+      default:
+        loggerLevel: BASIC
+        connectTimeout: 1000
+        readTimeout: 1000
+
+hystrix:
+  command:
+    default:
+      execution.isolation.thread.timeoutInMilliseconds: 10000
+
+    OrganizationFeignClient#getOrganization(String,String):
+      metrics.rollingStats.timeInMilliseconds: 15000
+      metrics.rollingStats.numBuckets: 5
+      circuitBreaker.requestVolumeThreshold: 5
+      circuitBreaker.errorThresholdPercentage: 50
+      circuitBreaker.sleepWindowInMilliseconds: 7000
+
+  threadpool:
+    default:
+      coreSize: 30
+      maxQueueSize: 10
+
+spring:
+  cloud:
+    stream:
+      input:
+        inboundOrgChanges:
+          destination: orgChangeTopic
+          contentType: application/json
+          group: licensingGroup
+      kafka:
+        binder:
+          zkNodes: localhost
+          brokers: localhost
+
