@@ -49,13 +49,12 @@ hystrix:
 spring:
   cloud:
     stream:
-      input:
-        inboundOrgChanges:
+      bindings:
+        input:
           destination: orgChangeTopic
           contentType: application/json
           group: licensingGroup
       kafka:
         binder:
-          zkNodes: localhost
           brokers: localhost
 
