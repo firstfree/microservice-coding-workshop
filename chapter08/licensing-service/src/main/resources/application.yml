@@ -50,7 +50,7 @@ spring:
   cloud:
     stream:
       bindings:
-        input:
+        inboundOrgChanges:
           destination: orgChangeTopic
           contentType: application/json
           group: licensingGroup
