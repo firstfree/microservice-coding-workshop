@@ -1,0 +1,118 @@
+version: '3.6'
+
+services:
+  eurekaserver:
+    image: js/tmx-eurekasvr:chapter09
+    ports:
+      - 8761:8761
+
+  configserver:
+    image: js/tmx-confsvr:chapter09
+    ports:
+      - 8888:8888
+    environment:
+      EUREKASERVER_URI: http://eurekaserver:8761/eureka
+      EUREKASERVER_PORT: 8761
+
+  zuulserver:
+    image: js/tmx-zuulsvr:chapter09
+    ports:
+      - 5555:5555
+    environment:
+      PROFILE: default
+      SERVER_PORT: 5555
+      CONFIGSERVER_URI: http://configserver:8888
+      EUREKASERVER_URI: http://eurekaserver:8761/eureka
+      CONFIGSERVER_PORT: 8888
+      EUREKASERVER_PORT: 8761
+
+  organizationservice:
+    image: js/tmx-organization-service:chapter09
+    ports:
+      - 8085:8085
+    environment:
+      PROFILE: default
+      SERVER_PORT: 8085
+      CONFIGSERVER_URI: http://configserver:8888
+      EUREKASERVER_URI: http://eurekaserver:8761/eureka
+      KAFKASERVER_URI: kafkaserver
+      ZKSERVER_URI: zookeeper
+      CONFIGSERVER_PORT: 8888
+      EUREKASERVER_PORT: 8761
+      KAFKASERVER_PORT: 2181
+      DATABASESERVER_PORT: 3306
+      ENCRYPT_KEY: encryptkey
+
+  licensingservice1:
+    image: js/tmx-licensing-service:chapter09
+    ports:
+      - 8080:8080
+    environment:
+      PROFILE: default
+      SERVER_PORT: 8080
+      CONFIGSERVER_URI: http://configserver:8888
+      EUREKASERVER_URI: http://eurekaserver:8761/eureka/
+      KAFKASERVER_URI: kafkaserver
+      ZKSERVER_URI: zookeeper
+      CONFIGSERVER_PORT: 8888
+      EUREKASERVER_PORT: 8761
+      KAFKASERVER_PORT: 2181
+      DATABASESERVER_PORT: 3306
+      REDIS_PORT: 6379
+      ENCRYPT_KEY: encryptkey
+
+  licensingservice2:
+    image: js/tmx-licensing-service:chapter09
+    ports:
+      - 8081:8081
+    environment:
+      PROFILE: default
+      SERVER_PORT: 8081
+      CONFIGSERVER_URI: http://configserver:8888
+      EUREKASERVER_URI: http://eurekaserver:8761/eureka/
+      KAFKASERVER_URI: kafkaserver
+      ZKSERVER_URI: zookeeper
+      CONFIGSERVER_PORT: 8888
+      EUREKASERVER_PORT: 8761
+      KAFKASERVER_PORT: 2181
+      DATABASESERVER_PORT: 3306
+      REDIS_PORT: 6379
+      ENCRYPT_KEY: encryptkey
+
+  database:
+    image: mysql:8.0.15
+    container_name: microdust-db
+    volumes:
+      - ../../../../../../docker/mysql/data:/var/lib/mysql
+      - ../../../../../../docker/mysql/conf.d/my_custom.cnf:/etc/mysql/conf.d/my_custom.cnf:ro
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: micr0dust
+      MYSQL_DATABASE: microdust_local
+      MYSQL_USER: microdust
+      MYSQL_PASSWORD: micr0dust
+      TZ: Asia/Seoul
+
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports:
+      - 2181:2181
+
+  kafkaserver:
+    image: wurstmeister/kafka
+    container_name: kafka
+    ports:
+      - 9092:9092
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
