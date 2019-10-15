@@ -25,6 +25,12 @@ while ! `nc -z zookeeper $KAFKASERVER_PORT`; do sleep 10; done
 echo "******* Zookeeper Server has started."
 
 echo "********************************************************"
+echo "Waiting for the ZIPKIN server to start on port $ZIPKIN_PORT"
+echo "********************************************************"
+while ! `nc -z zipkin $ZIPKIN_PORT`; do sleep 10; done
+echo "******* ZIPKIN has started"
+
+echo "********************************************************"
 echo "Starting Organization Service"
 echo "********************************************************"
 java -Dserver.port=$SERVER_PORT \
@@ -33,5 +39,6 @@ java -Dserver.port=$SERVER_PORT \
      -Dspring.profiles.active=$PROFILE \
      -Dspring.cloud.stream.kafka.binder.zkNodes=$ZKSERVER_URI \
      -Dspring.cloud.stream.kafka.binder.brokers=$KAFKASERVER_URI \
+     -Dspring.zipkin.baseUrl=$ZIPKIN_URI \
      -jar /usr/local/organizationservice/@project.build.finalName@.jar
 
