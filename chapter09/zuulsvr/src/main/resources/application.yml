@@ -1,7 +1,7 @@
 logging:
   level:
-    com.netflix: INFO
-    org.springframework: INFO
+    com.netflix: WARN
+    org.springframework: WARN
     com.thoughtmechanix: DEBUG
 
 server:
@@ -23,3 +23,6 @@ management:
       exposure:
         include: "*"
 
+spring:
+  zipkin:
+    baseUrl: localhost:9411

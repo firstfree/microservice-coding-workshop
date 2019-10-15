@@ -1,7 +1,7 @@
 logging:
   level:
     com.netflix: WARN
-    org.springframework.web: DEBUG
+    org.springframework.web: WARN
     com.thoughtmechanix: DEBUG
 
 eureka:
@@ -24,4 +24,6 @@ spring:
       kafka:
         binder:
           brokers: localhost
+  zipkin:
+    baseUrl: localhost:9411
 
