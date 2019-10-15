@@ -2,7 +2,6 @@ package com.thoughtmechanix.licenses.controllers;
 
 import com.thoughtmechanix.licenses.model.License;
 import com.thoughtmechanix.licenses.services.LicenseService;
-import com.thoughtmechanix.licenses.utils.UserContextHolder;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,8 +26,6 @@ public class LicenseController {
 
   @GetMapping
   public List<License> getLicenses(@PathVariable("organizationId") String organizationId) {
-    log.debug("LicenseController correlation id: {}",
-        UserContextHolder.getContext().getCorrelationId());
     return licenseService.getLicenses(organizationId);
   }
 

@@ -6,7 +6,6 @@ import com.thoughtmechanix.licenses.config.ServiceConfig;
 import com.thoughtmechanix.licenses.model.License;
 import com.thoughtmechanix.licenses.model.Organization;
 import com.thoughtmechanix.licenses.repository.LicenseRepository;
-import com.thoughtmechanix.licenses.utils.UserContextHolder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -40,8 +39,6 @@ public class LicenseService {
       }
   )
   public List<License> getLicenses(String organizationId) {
-    log.debug("LicenseService.getLicenses correlation id: {}",
-        UserContextHolder.getContext().getCorrelationId());
     randomlyRunLong();
     return licenseRepository.findByOrganizationId(organizationId);
   }
