@@ -23,8 +23,10 @@ services:
       SERVER_PORT: 5555
       CONFIGSERVER_URI: http://configserver:8888
       EUREKASERVER_URI: http://eurekaserver:8761/eureka
+      ZIPKIN_URI: http://zipkin:9411
       CONFIGSERVER_PORT: 8888
       EUREKASERVER_PORT: 8761
+      ZIPKIN_PORT: 9411
 
   organizationservice:
     image: js/tmx-organization-service:chapter09
@@ -37,10 +39,12 @@ services:
       EUREKASERVER_URI: http://eurekaserver:8761/eureka
       KAFKASERVER_URI: kafkaserver
       ZKSERVER_URI: zookeeper
+      ZIPKIN_URI: http://zipkin:9411
       CONFIGSERVER_PORT: 8888
       EUREKASERVER_PORT: 8761
       KAFKASERVER_PORT: 2181
       DATABASESERVER_PORT: 3306
+      ZIPKIN_PORT: 9411
       ENCRYPT_KEY: encryptkey
 
   licensingservice1:
@@ -54,9 +58,11 @@ services:
       EUREKASERVER_URI: http://eurekaserver:8761/eureka/
       KAFKASERVER_URI: kafkaserver
       ZKSERVER_URI: zookeeper
+      ZIPKIN_URI: http://zipkin:9411
       CONFIGSERVER_PORT: 8888
       EUREKASERVER_PORT: 8761
       KAFKASERVER_PORT: 2181
+      ZIPKIN_PORT: 9411
       DATABASESERVER_PORT: 3306
       REDIS_PORT: 6379
       ENCRYPT_KEY: encryptkey
@@ -72,9 +78,11 @@ services:
       EUREKASERVER_URI: http://eurekaserver:8761/eureka/
       KAFKASERVER_URI: kafkaserver
       ZKSERVER_URI: zookeeper
+      ZIPKIN_URI: http://zipkin:9411
       CONFIGSERVER_PORT: 8888
       EUREKASERVER_PORT: 8761
       KAFKASERVER_PORT: 2181
+      ZIPKIN_PORT: 9411
       DATABASESERVER_PORT: 3306
       REDIS_PORT: 6379
       ENCRYPT_KEY: encryptkey
