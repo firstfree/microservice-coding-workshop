@@ -116,3 +116,15 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
 
+#  logspout:
+#    image: gliderlabs/logspout
+#    command: syslog+tls://logs4.papertrailapp.com:10618
+#    volumes:
+#      - /private/var/run/docker.sock:/var/run/docker.sock
+
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
+
+
