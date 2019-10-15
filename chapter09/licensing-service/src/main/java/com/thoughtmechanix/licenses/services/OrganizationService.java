@@ -1,5 +1,7 @@
 package com.thoughtmechanix.licenses.services;
 
+import brave.Tracer;
+import brave.Tracer.SpanInScope;
 import com.thoughtmechanix.licenses.clients.OrganizationFeignClient;
 import com.thoughtmechanix.licenses.model.Organization;
 import com.thoughtmechanix.licenses.repository.OrganizationRedisRepository;
@@ -14,6 +16,7 @@ public class OrganizationService {
 
   private final OrganizationFeignClient organizationFeignClient;
   private final OrganizationRedisRepository organizationRedisRepository;
+  private final Tracer tracer;
 
   public Organization getOrganization(String organizationId) {
     Organization organization = checkCache(organizationId);
@@ -36,14 +39,19 @@ public class OrganizationService {
   }
 
   private Organization checkCache(String organizationId) {
-    try {
+    brave.Span newSpan = tracer.nextSpan().name("readLicensingDataFromRedis");
+
+    try (SpanInScope ws = tracer.withSpanInScope(newSpan.start())) {
       return organizationRedisRepository.findOrganization(organizationId);
     } catch (Exception e) {
       log.error("Error encountered while trying to retrieve organization {}. Exception {}",
           organizationId, e);
+      return null;
+    } finally {
+      newSpan.tag("peer.service", "redis");
+      newSpan.annotate("cr");
+      newSpan.finish();
     }
-
-    return null;
   }
 
   private void cacheOrganization(Organization organization) {
