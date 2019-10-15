@@ -32,7 +32,7 @@ public class LicenseService {
           @HystrixProperty(name = "maxQueueSize", value = "10")
       },
       commandProperties = {
-          @HystrixProperty(name = "metrics.rollingStats, timeInMilliseconds", value = "15000"),
+          @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "15000"),
           @HystrixProperty(name = "metrics.rollingStats.numBuckets", value = "5"),
           @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"),
           @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "75"),
