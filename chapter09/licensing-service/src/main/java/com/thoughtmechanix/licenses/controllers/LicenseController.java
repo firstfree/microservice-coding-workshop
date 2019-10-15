@@ -34,11 +34,8 @@ public class LicenseController {
   }
 
   @GetMapping("/{licenseId}")
-  public License getLicense(@RequestHeader("tmx-correlation-id") String correlationId,
-      @PathVariable("organizationId") String organizationId,
+  public License getLicense(@PathVariable("organizationId") String organizationId,
       @PathVariable("licenseId") String licenseId) {
-    log.debug("LicenseController correlation id: {}, thread id: {}", correlationId,
-        Thread.currentThread().getId());
     return licenseService.getLicense(organizationId, licenseId);
   }
 
